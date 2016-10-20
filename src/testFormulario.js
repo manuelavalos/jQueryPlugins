@@ -26,40 +26,143 @@ http://html5facil.com/tutoriales/como-crear-plugins-para-jquery/
      })
 })(jQuery);
 
+/*
+Forms tienen elementos
+    Los elementos que nos interean son:
+    input: type=['button','checkbox','color','date','datetime','datetime-local','email','file','hidden','image','month','number','password','radio','range','reset','search','submit','tel','text','time','url','week']
+    select
+    option
+    button
+        Cada elemento tiene sus propios eventos
+
+        Cada elemento tiene sus características:
+            email
+            checkbox
+            hidden
+            image
+            password
+            text
+
+        Cada elemento tiene sus propias validaciones
+
+        Cada elemento tiene sus propios mensajes (exito y error)
+
+        Los elementos que nos interesan son los que se envían a través del formulario.
+
+
+Eventos:
+    Cuando carga el DOM
+    Cuando se pasa el mouse por encima
+    Cuando se quita el mouse por encima
+    Cuando hacemos click con el mouse
+    Cuando tipeamos dentro del mouse
+    Cuando seleccionamos una opción
+    Cuando se envia el formulario
+
+Logic with "data-attributes":
+    [data]-[pluginName]-[central-action]-[attributes] = (values)
+    data-form-watch = true
+
+    data-form-mask-email = true
+    data-form-mask-money = true
+    data-form-mask-date = true
+    data-form-mask-cnpj = true
+    data-form-mask-cep = true
+    data-form-mask-custom = "000-000-000/00" || "000.000.000.000" || etc
+
+    data-form-validate-notEmpty = true
+    data-form-validate-onlyLetters = true
+    data-form-validate-email = true
+    data-form-validate-onlyNumbers = true
+    data-form-validate-maxLength = 50
+
+    data-form-required = true
+    data-form-readonly = true
+    data-form-disabled = true
+
+
+*/
 
 $(document).ready(function(){
-  $('#myForm').formManager({
-    fields: {
-        phone: {
-            validations: {
-                notEmpty: true,
-                maxLength: 10,
+  $('#myForm').formManager(var formOject = {
+        'fields' : [{
+            'id' : 'myName',
+            'name' : 'myName',
+            'validate': {
+                'notEmpty' : true,
+                'onlyLetters' : true,
+                'maxLength' : 50,
             },
-            mask: {
-                phone: true
+            attributes:{
+                'required' : true,
+                'readonly' : false,
+                'disabled' : false,
+            },
+            messages:{
+                success: {
+                    '.alert-success' : 'Bla bla bla!',
+                },
+                errrors: {
+                    '.alert-error-empty' : 'Bla bla bla',
+                    '.alert-error-invalid' : 'Bla bla bla',
+                }
             }
         },
-        email: {
-            validations: {
-                notEmpty: true,
-                maxLength: 10,
-                validEmail: true
+        {
+            'id' : 'myEmail',
+            'name' : 'myEmail',
+            'validate': {
+                'notEmpty' : true,
+                'email' : true,
+                'maxLength' : 40,
+            },
+            attributes:{
+                'required' : true,
+                'readonly' : false,
+                'disabled' : false,
+                'maxLength' : 40
+            },
+            messages:{
+                success: {
+                    '.alert-success' : 'Bla bla bla!',
+                },
+                errrors: {
+                    '.alert-error-empty' : 'Bla bla bla',
+                    '.alert-error-invalid' : 'Bla bla bla',
+                }
+            },
+            'mask': {
+                'maskEmail': true
             }
         },
-        password: {
-            validations: {
-                notEmpty: true,
-                maxLength: 10,
-                hasLowerChar: true,
-                hasUpperChar: true,
-                hasNumber: true,
-                hasSpecialChars: true
+        {
+            'id' : 'myBudget',
+            'name' : 'myBudget',
+            'validate': {
+                'notEmpty' : true,
+                'onlyNumbers' : true,
+                'maxLength' : 9,
+            },
+            attributes:{
+                'required' : true,
+                'readonly' : false,
+                'disabled' : false,
+                'maxLength' : 9
+            },
+            messages:{
+                success: {
+                    '.alert-success' : 'Bla bla bla!',
+                },
+                errrors: {
+                    '.alert-error-empty' : 'Bla bla bla',
+                    '.alert-error-invalid' : 'Bla bla bla',
+                }
+            },
+            'mask': {
+                'maskMoney': true
             }
-        },
-        checkbox: '',
-        mySubmit: ''
-    }
-  });
+        }],
+    });
 
   //$('.myInputClass').showMyName();
 })
